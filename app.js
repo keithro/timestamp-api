@@ -1,4 +1,5 @@
 const express = require ('express');
+const { queryParser } = require('./helpers/parser');
 app = express();
 
 // Index route
@@ -7,14 +8,17 @@ app.get('/', (req, res) => {
 });
 
 // Timestamp route
-app.get('/:data', (req, res) => {
-  const date = req.params.data;
+app.get('/:query', (req, res) => {
+  const results = queryParser(req.params.query);
 
-  res.send(date);
-  // res.send({
-  //   unix: 0823480921,
-  //   natural: '03/14/2014'
-  // });
+  res.send(results);
+});
+
+app.get('*', (req, res) => {
+  res.send({
+    unix: null,
+    natural: null
+  });
 })
 
 const port = process.env.PORT || 5000;
