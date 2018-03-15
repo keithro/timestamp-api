@@ -1,6 +1,11 @@
 const express = require ('express');
 const { queryParser } = require('./helpers/parser');
+const path = require('path');
+
 app = express();
+
+app.use(express.static(path.join(__dirname, 'public')));
+
 
 // Index route
 app.get('/', (req, res) => {
